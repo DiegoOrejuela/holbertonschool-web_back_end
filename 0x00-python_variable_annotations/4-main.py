@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 a = __import__('4-define_variables').a
 pi = __import__('4-define_variables').pi
