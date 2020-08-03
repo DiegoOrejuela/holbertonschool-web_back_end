@@ -8,6 +8,8 @@ from typing import List
 import logging
 import mysql.connector
 
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
@@ -36,6 +38,30 @@ def filter_datum(fields: List[str], redaction: str, message: str,
         message = re.sub(r"{}=(.*?){}".format(field, separator),
                          f'{field}={redaction}{separator}', message)
     return message
+
+
+def get_logger() -> logging.Logger:
+    """ returns a logging.Logger object """
+    # ==== Creations
+    # create logger
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+
+    # create console handler
+    handler = logging.StreamHandler()
+
+    # create formatter
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    handler.setFormatter(formatter)
+
+    # ==== Assignments
+    # assign formatter to handler
+    handler.setFormatter(formatter)
+
+    # assign handler to logger
+    logger.addHandler(handler)
+
+    return logger
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
