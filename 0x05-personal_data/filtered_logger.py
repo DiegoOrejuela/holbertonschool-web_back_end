@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 """
 0. Regex-ing
 """
@@ -23,10 +23,10 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """ Implement the format method """
-        record.message = filter_datum(self.fields, self.REDACTION,
-                                      record.getMessage(), self.SEPARATOR)
-        record.asctime = datetime.datetime.now()
-        return self.FORMAT % record.__dict__
+        return filter_datum(self.fields,
+                            self.REDACTION,
+                            super().format(record),
+                            self.SEPARATOR)
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
