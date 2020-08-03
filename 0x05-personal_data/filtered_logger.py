@@ -3,8 +3,7 @@
 0. Regex-ing
 """
 import re
-from typing import List, Tuple
-import datetime
+from typing import List
 import logging
 
 
@@ -16,15 +15,14 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: Tuple[str]):
+    def __init__(self, fields: List[str]):
         """ init """
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = list(fields)
+        self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """ Implement the format method """
-        return filter_datum(self.fields,
-                            self.REDACTION,
+        return filter_datum(self.fields, self.REDACTION,
                             super().format(record),
                             self.SEPARATOR)
 
