@@ -3,8 +3,10 @@
 0. Regex-ing
 """
 import re
+import os
 from typing import List
 import logging
+import mysql.connector
 
 
 class RedactingFormatter(logging.Formatter):
@@ -34,3 +36,12 @@ def filter_datum(fields: List[str], redaction: str, message: str,
         message = re.sub(r"{}=(.*?){}".format(field, separator),
                          f'{field}={redaction}{separator}', message)
     return message
+
+
+def get_db():
+    return mysql.connector.connect(
+        host=os.getenv('PERSONAL_DATA_DB_HOST'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME'),
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD')
+    )
