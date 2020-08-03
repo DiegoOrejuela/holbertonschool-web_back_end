@@ -10,3 +10,9 @@ def hash_password(password: str) -> bytes:
     a salted, hashed password, which is a byte string"""
     binary_password = bytes(password, "ascii")
     return bcrypt.hashpw(binary_password, bcrypt.gensalt())
+
+
+def is_valid(encrypt_password: bytes, password: str) -> bool:
+    """ expects a hashed_password bytes argument and password
+    string argument and returns a boolean """
+    return bcrypt.checkpw(bytes(password, "ascii"), encrypt_password)
