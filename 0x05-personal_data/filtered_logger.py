@@ -38,7 +38,8 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     return message
 
 
-def get_db():
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ returns a connector to the database """
     return mysql.connector.connect(
         host=os.getenv('PERSONAL_DATA_DB_HOST'),
         database=os.getenv('PERSONAL_DATA_DB_NAME'),
