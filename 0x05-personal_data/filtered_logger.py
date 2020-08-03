@@ -46,13 +46,13 @@ def get_logger() -> logging.Logger:
     # create logger
     logger = logging.getLogger('user_data')
     logger.setLevel(logging.INFO)
+    logger.propagate = False
 
     # create console handler
     handler = logging.StreamHandler()
 
     # create formatter
     formatter = RedactingFormatter(fields=PII_FIELDS)
-    handler.setFormatter(formatter)
 
     # ==== Assignments
     # assign formatter to handler
