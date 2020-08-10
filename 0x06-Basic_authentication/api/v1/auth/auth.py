@@ -27,6 +27,11 @@ class Auth:
                     path_safe_slash += '/'
                 if excluded_path_safe_slash[-1] != '/':
                     excluded_path_safe_slash += '/'
+
+            if excluded_path_safe_slash[-2] == '*':
+                if excluded_path_safe_slash[:-2] in path_safe_slash:
+                    return False
+
             if path_safe_slash == excluded_path_safe_slash:
                 return False
         return True

@@ -12,3 +12,9 @@ print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/status", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/users", ["/api/v1/status/", "/api/v1/stats"]))
+
+print()
+print('Cases 13. Require auth with stars')
+print(a.require_auth("/api/v1/users", ["/api/v1/stat*"])) # >>> True
+print(a.require_auth("/api/v1/status", ["/api/v1/stat*"])) # >>> False
+print(a.require_auth("/api/v1/stats", ["/api/v1/stat*"])) # >>> False
