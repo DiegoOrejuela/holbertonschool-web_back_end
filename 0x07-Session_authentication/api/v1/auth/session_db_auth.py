@@ -74,7 +74,7 @@ class SessionDBAuth(SessionExpAuth):
         if len(users_sessions) == 0:
             return None
 
-        user_session = users_sessions
+        user_session = users_sessions[0]
         user_session.remove()
 
         return True
