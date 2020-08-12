@@ -30,15 +30,13 @@ def login() -> str:
     if len(users) == 0:
         return jsonify(user_not_found_error), 404
 
-    user = users[0]
+    for user in users:
+        if user.is_valid_password(password):
+            # Create session
+            from api.v1.app import auth
 
-    if not user.is_valid_password(password):
-        return jsonify({"error": "wrong password"}), 404
-
-    # Create session
-    from api.v1.app import auth
-
-    session_id = auth.create_session(user_id=user.id)
-    response = jsonify(user.to_json())
-    response.set_cookie(getenv('SESSION_NAME'), session_id)
-    return response
+            session_id = auth.create_session(user_id=user.id)
+            response = jsonify(user.to_json())
+            response.set_cookie(getenv('SESSION_NAME'), session_id)
+            return response
+    return jsonify({"error": "wrong password"}), 401
