@@ -12,7 +12,8 @@ from user import Base
 class DB:
 
     def __init__(self):
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        # self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db")
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -34,3 +35,13 @@ class DB:
         self._session.commit()
 
         return user
+
+    def find_user_by(self, **kwargs: dict):
+        """ 2. Find user by
+        """
+        from user import User
+        from sqlalchemy.orm.exc import NoResultFound
+
+        results = self._session.query(User).filter_by(**kwargs)
+
+        return results.one()
