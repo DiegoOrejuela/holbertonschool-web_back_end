@@ -7,7 +7,7 @@ from user import User
 from db import DB
 
 
-def _hash_password(password: str):
+def _hash_password(password: str) -> bytes:
     """
     4. Hash password
     """
