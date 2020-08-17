@@ -40,7 +40,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **kwargs: dict):
+    def find_user_by(self, **kwargs: dict) -> User:
         """ 2. Find user by
         """
         results = self._session.query(User).filter_by(**kwargs)
