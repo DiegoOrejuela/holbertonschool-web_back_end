@@ -27,7 +27,7 @@ class Auth:
         """
         results = self._db._session.query(User).filter_by(email=email)
 
-        if results.count():
+        if results.count() > 0:
             raise ValueError("User {} already exists".format(email))
 
         hashed_password = _hash_password(password)
