@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from user import Base
+from user import Base, User
 
 
 class DB:
@@ -27,8 +27,6 @@ class DB:
     def add_user(self, email: str, hashed_password: str):
         """ Add user to DB
         """
-        from user import User
-
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user, _warn=False)
         self._session.commit()
@@ -38,9 +36,21 @@ class DB:
     def find_user_by(self, **kwargs: dict):
         """ 2. Find user by
         """
-        from user import User
-        from sqlalchemy.orm.exc import NoResultFound
-
         results = self._session.query(User).filter_by(**kwargs)
-
         return results.one()
+
+    def update_user(self, user_id: int, **kwargs: dict):
+        """ 2. Update user
+        """
+
+        user = self.find_user_by(id=user_id)
+
+        for k, _ in kwargs.items():
+            if k not in list(user.__dict__.keys()):
+                raise ValueError()
+
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+
+        self._session.add(user)
+        self._session.commit()
