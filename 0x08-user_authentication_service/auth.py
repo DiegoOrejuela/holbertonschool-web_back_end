@@ -81,4 +81,4 @@ class Auth:
         """ The method takes a single user_id integer argument
             and returns None.
         """
-        self._db.update_user(user_id, id=None)
+        self._db.update_user(user_id, session_id=None)
