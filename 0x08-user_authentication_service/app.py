@@ -2,7 +2,7 @@
 """
 App module
 """
-from flask import Flask, escape, request, jsonify
+from flask import Flask, escape, request, jsonify, abort
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -31,6 +31,23 @@ def register_user() -> str:
                         "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
+
+
+@app.route('/sessions', methods=['POST'])
+def log_in() -> str:
+    """ Log in
+    """
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if not email or not password or not AUTH.valid_login(email, password):
+        abort(401)
+
+    session_id = AUTH.create_session(email)
+    response = jsonify({"email": email, "message": "logged in"})
+    response.set_cookie("session_id", session_id)
+    return response
 
 
 if __name__ == "__main__":
