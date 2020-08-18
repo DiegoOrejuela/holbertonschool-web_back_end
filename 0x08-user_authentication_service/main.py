@@ -2,41 +2,50 @@
 """
 Main file
 """
+import requests
+
 
 def register_user(email: str, password: str) -> None:
     """ Register user
     """
     pass
 
+
 def log_in_wrong_password(email: str, password: str) -> None:
     """ Log in wrong password
     """
     pass
+
 
 def log_in(email: str, password: str) -> str:
     """ Log in
     """
     return ''
 
+
 def profile_unlogged() -> None:
     """ Profile unlogged
     """
     pass
+
 
 def profile_logged(session_id: str) -> None:
     """ Profile Logged
     """
     pass
 
+
 def log_out(session_id: str) -> None:
     """ Log out
     """
     pass
 
+
 def reset_password_token(email: str) -> str:
     """ Reset password token
     """
     return ''
+
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
     """ Update password
