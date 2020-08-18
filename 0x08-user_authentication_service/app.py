@@ -93,7 +93,7 @@ def get_reset_password_token() -> str:
         abort(403)
 
 
-@app.route('/update_password', methods=['PUT'])
+@app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
     """ If the email is not registered, respond with a 403 status code.
         Otherwise, generate a token and respond with a 200 HTTP status
