@@ -2,7 +2,7 @@
 """
 App module
 """
-from flask import Flask, escape, request, jsonify, abort
+from flask import Flask, escape, request, jsonify, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -48,6 +48,20 @@ def log_in() -> str:
     response = jsonify({"email": email, "message": "logged in"})
     response.set_cookie("session_id", session_id)
     return response
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout() -> str:
+    """ Log out
+    """
+    session_id = request.cookies.get('session_id')
+
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect("http://0.0.0.0:5000/")
+    abort(403)
 
 
 if __name__ == "__main__":
