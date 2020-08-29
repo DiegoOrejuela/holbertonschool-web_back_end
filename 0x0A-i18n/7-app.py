@@ -57,7 +57,11 @@ def get_locale() -> Union[str, None]:
 @babel.timezoneselector
 def get_timezone():
     """ get timezone """
-    locale = request.args.get('timezone')
+    user = get_user()
+    if user:
+        locale = user['timezone']
+    if request.args.get('timezone'):
+        locale = request.args.get('timezone')
 
     try:
         return timezone(locale).zone
