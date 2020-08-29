@@ -54,9 +54,6 @@ def get_locale() -> Union[str, None]:
     # 3. Locale from request header
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-    # 4. Default locale
-    # If return None, set default locale
-
 
 @app.before_request
 def before_request():
