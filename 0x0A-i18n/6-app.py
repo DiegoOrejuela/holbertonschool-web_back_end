@@ -41,10 +41,21 @@ def get_user():
 def get_locale() -> Union[str, None]:
     """ get locale
     """
+    # 1. Locale from URL parameters
     locale = request.args.get('locale')
     if locale and locale in app.config['LANGUAGES']:
         return locale
+
+    # 2. Locale from user settings
+    user = get_user()
+    if user:
+        return user['locale']
+
+    # 3. Locale from request header
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+    # 4. Default locale
+    # If return None, set default locale
 
 
 @app.before_request
