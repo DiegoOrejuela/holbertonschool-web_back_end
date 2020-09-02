@@ -27,12 +27,13 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable):
+    def get(self, key: str, fn: Callable) -> Union[str, bytes, int, float]:
         """  Reading from Redis and recovering original type
         """
         value = self._redis.get(key)
-        try:
-            value = fn(value)
-        except Exception:
-            pass
+        if value:
+            try:
+                value = fn(value)
+            except Exception:
+                pass
         return value
