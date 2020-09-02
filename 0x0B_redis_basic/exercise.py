@@ -50,8 +50,8 @@ def call_history(method: Callable) -> Callable:
 def replay(method: Callable):
     """Displays nthe history of calls
     """
-    r = redis.Redis()
-    method_name = Cache.store.__qualname__
+    r = method.__self__._redis
+    method_name = method.__qualname__
 
     inputs = r.lrange("{}:inputs".format(method_name), 0, -1)
     outputs = r.lrange("{}:outputs".format(method_name), 0, -1)
