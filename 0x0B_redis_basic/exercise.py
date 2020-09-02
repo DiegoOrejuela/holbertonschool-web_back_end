@@ -86,13 +86,8 @@ class Cache:
             fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """  Reading from Redis and recovering original type
         """
-        value = self._redis.get(key)
-        if value:
-            try:
-                value = fn(value)
-            except Exception:
-                pass
-        return value
+        res = self._redis.get(key)
+        return fn(res) if fn else res
 
     def get_str(self, data: bytes) -> str:
         """
