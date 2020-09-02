@@ -15,12 +15,14 @@ def count_calls(method: Callable) -> Callable:
     for that key every time the method is called and returns
     the value returned by the original method.
     """
+    key = method.__qualname__
+
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """
         wrapper function
         """
-        self._redis.incr(method.__qualname__)
+        self._redis.incr(key)
         return method(self, *args, **kwds)
     return wrapper
 
