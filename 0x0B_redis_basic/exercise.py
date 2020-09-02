@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-'''
+"""
 Redis basic module
-'''
+"""
 from typing import Union
 import redis
 import uuid
 
 
 class Cache:
-    """ Cache class """
+    """ Cache class
+    """
 
     def __init__(self):
-        """ __init __ """
+        """ __init __
+        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
@@ -21,5 +23,5 @@ class Cache:
         data in Redis using the random key and return the key.
         """
         key = str(uuid.uuid1())
-        self._redis.mset({key, data})
+        self._redis.set(key, data)
         return key
