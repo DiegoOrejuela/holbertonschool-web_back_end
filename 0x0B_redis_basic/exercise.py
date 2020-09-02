@@ -9,7 +9,7 @@ import sys
 from functools import wraps
 
 
-def count_calls(method: callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """
     Create and return function that increments the count
     for that key every time the method is called and returns
@@ -20,7 +20,7 @@ def count_calls(method: callable) -> Callable:
         """
         wrapper function
         """
-        self._redis.incrby(method.__qualname__, 1)
+        self._redis.incr(method.__qualname__)
         return method(self, *args, **kwds)
     return wrapper
 
