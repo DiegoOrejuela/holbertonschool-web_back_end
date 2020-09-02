@@ -5,6 +5,7 @@ Redis basic module
 from typing import Union, Callable, Optional
 import redis
 import uuid
+import sys
 from functools import wraps
 
 
@@ -92,3 +93,15 @@ class Cache:
             except Exception:
                 pass
         return value
+
+    def get_str(self, data: bytes) -> str:
+        """
+        Converts bytes to string.
+        """
+        return data.decode('utf-8')
+
+    def get_int(self, data: bytes) -> int:
+        """
+        Converts bytes to int.
+        """
+        return int.from_bytes(data, sys.byteorder)
