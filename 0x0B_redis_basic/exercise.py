@@ -2,7 +2,7 @@
 """
 Redis basic module
 """
-from typing import Union
+from typing import Union, Callable
 import redis
 import uuid
 
@@ -18,10 +18,21 @@ class Cache:
         self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
-        """ Takes a data argument and returns a string. The method
+        """
+        Takes a data argument and returns a string. The method
         should generate a random key (e.g. using uuid), store the input
         data in Redis using the random key and return the key.
         """
         key = str(uuid.uuid1())
         self._redis.set(key, data)
         return key
+
+    def get(self, key: str, fn: Callable):
+        """  Reading from Redis and recovering original type
+        """
+        value = self._redis.get(key)
+        try:
+            value = fn(value)
+        except Exception:
+            pass
+        return value
