@@ -18,7 +18,7 @@ if __name__ == "__main__":
             {'method': _method}
         ).count()
 
-        print(f'    method {_method}: {method_count}')
+        print(f'\tmethod {_method}: {method_count}')
 
     status_check_count = nginx_collection.find(
         {'method': 'GET', 'path': '/status'}
