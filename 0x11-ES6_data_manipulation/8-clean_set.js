@@ -1,6 +1,6 @@
 export default function cleanSet(set, startString) {
-  const startStringSanitizite = startString || false;
+  if (!startString || !startString.length) return '';
   return Array.from(set).map(
-    (element) => (element.startsWith(startStringSanitizite) ? element.substring(startStringSanitizite.length) : ''),
+    (element) => (element.startsWith(startString) ? element.substring(startString.length) : ''),
   ).filter(Boolean).join('-');
 }
