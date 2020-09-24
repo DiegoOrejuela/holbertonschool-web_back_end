@@ -8,4 +8,3 @@ export default function cleanSet(set, str) {
   }
   return val;
 }
-
