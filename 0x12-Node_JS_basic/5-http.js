@@ -65,9 +65,10 @@ const app = http.createServer((req, res) => {
       break;
     case '/students':
       res.writeHead(200);
+      res.write('This is the list of our students\n');
       countStudents(process.argv[2])
         .then((data) => {
-          res.end(`This is the list of our students\n${data}`);
+          res.end(data);
         })
         .catch((error) => {
           res.end(error.message);
