@@ -46,7 +46,7 @@ module.exports = function countStudents(path) {
           console.log(responseGroupStudents);
         }
       }
-      resolve(response.substring(0, response.length - 1));
+      resolve(response);
     });
   }));
 };
