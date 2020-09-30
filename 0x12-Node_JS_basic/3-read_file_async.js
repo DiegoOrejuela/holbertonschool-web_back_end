@@ -33,16 +33,20 @@ module.exports = function countStudents(path) {
           studentsObjects.push(studentObject);
         }
       });
+      const numberStudents = `Number of students: ${studentsObjects.length}`;
 
-      console.log(`Number of students: ${studentsObjects.length}`);
+      let response = `${numberStudents}\n`;
+      console.log(numberStudents);
 
       for (const groupStudent in groupingStudentsField) {
         if (groupingStudentsField[groupStudent]) {
           const listStudents = groupingStudentsField[groupStudent];
-          console.log(`Number of students in ${groupStudent}: ${listStudents.length}. List: ${listStudents.join(', ')}`);
+          const responseGroupStudents = `Number of students in ${groupStudent}: ${listStudents.length}. List: ${listStudents.join(', ')}`;
+          response += `${responseGroupStudents}\n`;
+          console.log(responseGroupStudents);
         }
       }
-      resolve();
+      resolve(response.substring(0, response.length - 1));
     });
   }));
 };
