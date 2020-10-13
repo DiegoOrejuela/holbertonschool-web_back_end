@@ -59,11 +59,11 @@ function createJob (phoneNumber, message) {
     job.on('enqueue', function(id, type){
 	console.log(`Notification job created: ${job.id}`);
     }).on('complete', function(result){
-	console.log(`Notification job ${job.id} completed`);
+	console.log(`Notification job #${job.id} completed`);
     }).on('failed', function(errorMessage){
-	console.log(`Notification job ${job.id} failed: ${errorMessage}`);
+	console.log(`Notification job #${job.id} failed: ${errorMessage}`);
     }).on('progress', function(progress, data){
-	console.log(`Notification job ${job.id} ${progress} complete`);
+	console.log(`Notification job #${job.id} ${progress}% complete`);
     });
 }
 
